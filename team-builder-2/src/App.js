@@ -8,10 +8,14 @@ function App() {
 
   const [teamMembers, setTeamMembers] = useState(team)
 
+  const addUser = person => {
+    setTeamMembers([...teamMembers, person])
+  }
+
   return (
     <div className="App">
+      <InputForm addUser={addUser} />
       <TeamList teamMembers={teamMembers} />
-      <InputForm />
     </div>
   );
 }

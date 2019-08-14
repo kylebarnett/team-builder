@@ -1,17 +1,19 @@
 import React from 'react';
+import '../App.css'
 
 export default function TeamMember({ member }) {
   const { name, hobbies, location } = member
+  console.log("hello", hobbies)
   return (
-    <div>
-      <h1>Name: {member.name}</h1>
+    <div className="member-container">
+      <h1>Name: {name}</h1>
       <ul>
         <h2>Hobbies: </h2>
-        <li>{member.hobbies.map(hobby => (
-          <p key={hobby}>{hobby}</p>
+        <li>{hobbies.map((hobby, index) => (
+          <p key={index}>{hobby}</p>
         ))}</li>
       </ul>
-      <h3>Location: {member.location}</h3>
+      <h3>Location: {location}</h3>
     </div>
   )
 }

@@ -1,49 +1,64 @@
 import React, { useState } from 'react';
+import team from '../data';
 
-export default function InputForm() {
+export default function InputForm(props) {
   const [user, setUser] = useState({
     name: "",
-    email: "",
-    role: ""
+    hobbies: [],
+    location: ""
   })
 
+  const [hobby, setHobbies] = useState("")
+
   const handleChange = event => {
-    const updatedUser = { ...user, [event.target.name]: event.target.value };
-    console.log(
-      event.target.name,
-      event.target.value,
-      updatedUser
-    )
-    setUser(updatedUser)
+    if (event.target.name === "hobbies") {
+
+      setHobbies(event.target.value)
+    } else {
+      setUser({ ...user, [event.target.name]: event.target.value })
+      console.log(event.target.value)
+    }
   }
 
   const handleSubmit = event => {
     event.preventDefault();
+    let newHobbies = [...user.hobbies]
+
+    newHobbies.push(hobby)
+    const newUser = {
+      ...user,
+      hobbies: newHobbies
+    }
+    console.log('newUser', newUser)
+    props.addUser(newUser)
     console.log("user state", user)
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="name"
-        placeholder="Name..."
-        value={user.name}
-        onChange={handleChange}
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email..."
-        value={user.email}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="role"
-        placeholder="Role..."
-        value={user.role}
-        onChange={handleChange}
-      />
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Name..."
+          value={user.name}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="hobbies"
+          placeholder="Hobbies..."
+          value={hobby}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="location"
+          placeholder="Location..."
+          value={user.location}
+          onChange={handleChange}
+        />
+        <button type="submit">Add User</button>
+      </form>
+    </div>
   )
 }
